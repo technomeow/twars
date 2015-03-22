@@ -8,20 +8,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TWarsGame extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
-	
+    Texture tower;
+    Texture bullet;
+    Texture mob;
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		tower = new Texture("t1.png");
+        bullet = new Texture("b1.png");
+        mob = new Texture("m1.png");
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		batch.draw(tower, 0, 0);
+        batch.draw(mob, 100, 100);
 		batch.end();
 	}
 }
