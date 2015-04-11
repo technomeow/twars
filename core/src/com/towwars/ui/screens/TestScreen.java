@@ -6,35 +6,36 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.towwars.TWarsGame;
+import com.towwars.units.Shooter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestScreen implements Screen {
 
-    private Texture tower;
-    private Texture mob;
+    private List<Shooter> shooters;
     private final TWarsGame game;
-    private Stage stage;
 
     public TestScreen(final TWarsGame game) {
         this.game = game;
-        tower = new Texture("t1.png");
-        mob = new Texture("m1.png");
-        stage = new Stage();
     }
 
     @Override
     public void show() {
-
+        shooters = new ArrayList<Shooter>();
+        shooters.add(new Shooter(new Texture("shooter1.png"), 100, 100));
+        shooters.add(new Shooter(new Texture("shooter2.png"), 300, 300));
+        shooters.add(new Shooter(new Texture("shooter3.png"), 500, 500));
+        shooters.add(new Shooter(new Texture("shooter4.png"), 700, 700));
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1); //sets clear color to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); //clear the batch
-//        stage.act(); //update all actors
-//        stage.draw(); //draw all actors on the Stage.getBatch()
+        shooters.forEach(s -> s.update());
         game.batch.begin();
-        game.batch.draw(tower, 0, 0);
-        game.batch.draw(mob, 250, 400);
+        shooters.forEach(s -> s.draw(game.batch));
         game.batch.end();
     }
 
@@ -60,8 +61,5 @@ public class TestScreen implements Screen {
 
     @Override
     public void dispose() {
-        tower.dispose();
-        mob.dispose();
-        stage.dispose();
     }
 }
